@@ -1,11 +1,13 @@
 import React from 'react'
 import { useState } from 'react'
+import Feedback from "./feedback.jsx"
 
-const Form = () => {
+const Form = (props) => {
     const [Name, setName] = useState("");
     const [Department, setDepartment] = useState("");
     const [Rating, setRating] = useState("");
-    const [Feedback, setFeed] = useState([]);
+    const [feedback, setFeed] = useState([]);
+    const [toggle, setToggle] = useState(true)
 
 
 
@@ -24,59 +26,45 @@ const Form = () => {
         
     }
     const handleSubmit = (e) => {
-        // console.log("submitted")
+        console.log("submitted")
         e.preventDefault();
         const newFeedback = {
             Name: Name,
             Department: Department,
             Rating: Rating,
         }
-        setFeed([...Feedback, newFeedback]);
+        // console.log("newfeded",newFeedback)
+        setFeed([...feedback, newFeedback]);
         setName('');
         setDepartment('');
         setRating(' ');
-        // console.log(Feedback);
+        setToggle(!toggle)
     }
+    
+    return (
+        <>{toggle ?
+            <form onSubmit={handleSubmit}>
+                    <h1>Employee Feedback Form</h1>
+                    <div className='card'>
+                        <label>Name</label>
+                        <input type="text" name="Name" value={Name} onChange={handleChange} />
+                    </div>
+                    <div className='card'>
+                        <label>Department</label>
+                        <input type="text" name="Department" value={Department} onChange={handleChange} />
+                    </div>
+                    <div className='card'>
+                        <label>Rating</label>
+                        <input type="number" name="Rating" value={Rating} onChange={handleChange} />
+                    </div>
+                   <button type='submit'>
+                        Submit
+                    </button>
 
-  return (
-      <>
-          <form onSubmit={handleSubmit}>
-              <h1>Employee Feedback Form</h1>
-              <div className='card'>
-                  <label>Name</label>
-                  <input type="text" name="Name" value={Name} onChange={handleChange} />
-              </div>
-              <div className='card'>
-                  <label>Department</label>
-                  <input type="text" name="Department" value={Department} onChange={handleChange}/>
-              </div>
-              <div className='card'>
-                  <label>Rating</label>
-                  <input type="number" name="Rating" value={Rating} onChange={handleChange} />
-              </div>
-              <button type='submit' >
-                  Submit
-              </button>
-              
-          </form>
-          <div>
-              {Feedback.map((feed, index) => {
-                  return (
-                      
-                          <div className='feedback' key={index}>
-                          <h4>
-                              Name:    {feed.Name}  |
-                          
-                              Department :    {feed.Department} |
-                         
-                              Rating:    {feed.Rating}|
-                          </h4>
-                      </div>
-                      
-                  )
-              }
-              )}
-          </div>
+            </form>
+            :
+            <Feedback feedback={feedback} varad={setToggle} />
+        }
     </>
   )
 }
