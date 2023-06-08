@@ -12,19 +12,7 @@ const Form = (props) => {
 
 
 
-    const handleChange = (e) => {
-        // setName({ [e.target.Name]: e.target.value })
-        // setDepartment({[e.target.Department]:e.target.value})
-        // setRating({[e.target.Rating]:e.target.value})
-        setName(e.target.name === 'Name' ? e.target.value : Name)
-        setDepartment(e.target.name === 'Department  ' ? e.target.value : Department)
-        setRating(e.target.name === 'Rating ' ? e.target.value : Rating)
-        
-
-        // console.log(Name,Department,Rating)
-        
-        
-    }
+   
     const handleSubmit = (e) => {
         console.log("submitted")
         e.preventDefault();
@@ -47,15 +35,15 @@ const Form = (props) => {
                     <h1>Employee Feedback Form</h1>
                     <div className='card'>
                         <label>Name</label>
-                        <input type="text" name="Name" value={Name} onChange={handleChange} />
+                        <input type="text" name="Name" value={Name} onChange={(e)=>setName( e.target.value)} />
                     </div>
                     <div className='card'>
                         <label>Department</label>
-                        <input type="text" name="Department" value={Department} onChange={handleChange} />
+                        <input type="text" name="Department" value={Department} onChange={(e)=>setDepartment( e.target.value )} />
                     </div>
                     <div className='card'>
                         <label>Rating</label>
-                        <input type="number" name="Rating" value={Rating} onChange={handleChange} />
+                        <input type="number" name="Rating" value={Rating} onChange={(e)=>setRating( e.target.value )} />
                     </div>
                    <button type='submit'>
                         Submit
